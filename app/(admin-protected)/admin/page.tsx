@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
+import { AnimatedStandings } from '@/components/AnimatedStandings';
+import { sortTeamsByStandings } from '@/lib/leaderboard-rank';
 
 type TeamRow = {
   id: string;
@@ -102,6 +104,8 @@ export default function AdminPage() {
     return { totalTeams, completed, inProgress, totalAttempts };
   }, [teams, attempts]);
 
+  const rankedTeams = useMemo(() => sortTeamsByStandings(teams, nowMs), [teams, nowMs]);
+
   const handleLogout = async () => {
     await fetch('/api/admin/logout', { method: 'POST' });
     window.location.href = '/admin/login';
@@ -156,10 +160,24 @@ export default function AdminPage() {
       {loading ? (
           <div className="rounded-xl border border-slate-700 bg-slate-900/50 p-6">Loading live data...</div>
       ) : (
+        <>
+          <div className="mb-8 max-w-3xl">
+            <AnimatedStandings
+              layoutGroupId="admin-live-ranking"
+              teams={rankedTeams}
+              nowMs={nowMs}
+              variant="admin"
+              title="Live ranking"
+              attemptsByTeam={attemptsByTeam}
+              showAdminExtras
+            />
+          </div>
+
           <div className="overflow-x-auto rounded-xl border border-slate-600/70 bg-slate-900/60 backdrop-blur-md shadow-2xl">
             <table className="w-full text-sm">
               <thead className="bg-slate-900/90">
               <tr>
+                <th className="text-left p-3 text-cyan-200">Rank</th>
                 <th className="text-left p-3 text-cyan-200">Team</th>
                 <th className="text-left p-3 text-cyan-200">Current Level</th>
                 <th className="text-left p-3 text-cyan-200">Status</th>
@@ -171,7 +189,7 @@ export default function AdminPage() {
               </tr>
             </thead>
             <tbody>
-              {teams.map((team) => {
+              {rankedTeams.map((team, rankIndex) => {
                 const baseSeconds = team.end_time
                   ? Math.floor((new Date(team.end_time).getTime() - new Date(team.start_time).getTime()) / 1000)
                   : Math.floor((nowMs - new Date(team.start_time).getTime()) / 1000);
@@ -180,6 +198,7 @@ export default function AdminPage() {
                   : Math.max(0, baseSeconds + (team.penalty_seconds || 0));
                 return (
                   <tr key={team.id} className="border-t border-slate-800/80 hover:bg-slate-800/40 transition">
+                    <td className="p-3 font-mono text-amber-200/90">{rankIndex + 1}</td>
                     <td className="p-3 font-semibold text-slate-100">{team.team_name}</td>
                     <td className="p-3">
                       <span className="inline-flex px-2.5 py-1 rounded-md bg-indigo-500/20 border border-indigo-400/40 text-indigo-100">
@@ -208,6 +227,7 @@ export default function AdminPage() {
             </tbody>
           </table>
         </div>
+        </>
       )}
       </div>
     </div>
