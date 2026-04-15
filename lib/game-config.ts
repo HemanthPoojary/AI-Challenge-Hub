@@ -30,7 +30,7 @@ export const QUESTION_BANK: Record<number, LevelQuestion> = {
     description: 'On the 2nd Floor, a space of comfort where thoughts sink before they rise stronger.',
     hint: 'Find the QR code at this location. Scan it and enter the passcode to unlock the next level.',
     passcode: 'DEEP-MIND-202',
-    revealNumber: 1,
+    revealNumber: 11,
   },
   4: {
     id: 4,
@@ -38,7 +38,7 @@ export const QUESTION_BANK: Record<number, LevelQuestion> = {
     description: 'On the 5th Floor, where first impressions are crafted and every arrival is acknowledged.',
     hint: 'Find the QR code at this location. Scan it and enter the passcode to unlock the next level.',
     passcode: 'ELEVATE-505',
-    revealNumber: 11,
+    revealNumber: 25,
   },
   5: {
     id: 5,
@@ -46,7 +46,7 @@ export const QUESTION_BANK: Record<number, LevelQuestion> = {
     description: 'On the 4th Floor, where information rests quietly, waiting to be discovered.',
     hint: 'Find the QR code at this location. Scan it and enter the passcode to complete the challenge.',
     passcode: 'FINAL-KEY-404',
-    revealNumber: 25,
+    revealNumber: 1,
   },
 };
 

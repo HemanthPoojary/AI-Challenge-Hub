@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 const FIXED_REWARD_BY_LEVEL: Record<number, number> = {
   1: 16,
   2: 18,
-  3: 1,
-  4: 11,
-  5: 25,
+  3: 11,
+  4: 25,
+  5: 1,
 };
 
 export async function POST(request: NextRequest) {

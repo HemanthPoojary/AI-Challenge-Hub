@@ -67,7 +67,7 @@ export function FinalAnswerScreen({
               Numbers collected (in order):
             </p>
             <p className="text-pink-300 text-center text-xl font-bold tracking-widest">
-              16 • 18 • 1 • 11 • 25
+              16 • 18 • 11 • 25 • 1
             </p>
             <p className="text-cyan-300 text-center text-sm mt-4">
               Convert these numbers to alphabets (A=1, B=2... Z=26) and you will reveal the FCC person&apos;s initials.
