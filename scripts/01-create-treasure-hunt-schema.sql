@@ -151,7 +151,7 @@ CREATE POLICY final_passcodes_select_policy ON final_passcodes
   USING (true);
 
 INSERT INTO final_passcodes (passcode, is_active) VALUES
-  ('I''M NOT TIERD', true)
+  ('WE ARE THE CHAMPIONS', true)
 ON CONFLICT DO NOTHING;
 
 -- Admin helper view with IST conversion and effective timer

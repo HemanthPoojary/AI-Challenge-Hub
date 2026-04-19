@@ -45,15 +45,21 @@ BEGIN
   END IF;
 END $$;
 
+-- Final passcode: migrate from legacy phrase if present; ensure new default exists.
+UPDATE final_passcodes
+SET passcode = 'WE ARE THE CHAMPIONS', is_active = true
+WHERE upper(regexp_replace(passcode, '[^A-Za-z0-9]', '', 'g')) =
+      upper(regexp_replace('I''M NOT TIERD', '[^A-Za-z0-9]', '', 'g'));
+
 DO $$
 BEGIN
   IF NOT EXISTS (
     SELECT 1
     FROM final_passcodes
-    WHERE upper(regexp_replace(passcode, '[^A-Za-z0-9_]', '', 'g')) =
-          upper(regexp_replace('I''M NOT TIERD', '[^A-Za-z0-9_]', '', 'g'))
+    WHERE upper(regexp_replace(passcode, '[^A-Za-z0-9]', '', 'g')) =
+          upper(regexp_replace('WE ARE THE CHAMPIONS', '[^A-Za-z0-9]', '', 'g'))
   ) THEN
-    INSERT INTO final_passcodes (passcode, is_active) VALUES ('I''M NOT TIERD', true);
+    INSERT INTO final_passcodes (passcode, is_active) VALUES ('WE ARE THE CHAMPIONS', true);
   END IF;
 END $$;
 

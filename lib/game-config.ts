@@ -26,8 +26,8 @@ export const QUESTION_BANK: Record<number, LevelQuestion> = {
   },
   3: {
     id: 3,
-    title: '2nd Floor',
-    description: 'On the 2nd Floor, a space of comfort where thoughts sink before they rise stronger.',
+    title: '1st Floor',
+    description: 'On the 1st Floor, a space of comfort where thoughts sink before they rise stronger.',
     hint: 'Find the QR code at this location. Scan it and enter the passcode to unlock the next level.',
     passcode: 'DEEP-MIND-202',
     revealNumber: 11,
